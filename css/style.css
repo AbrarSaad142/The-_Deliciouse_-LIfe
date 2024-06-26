@@ -2441,15 +2441,15 @@ h3 {
 
 /* line 45, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_footer.scss */
 .footer .footer_top {
-  padding-top: 150px;
-  padding-bottom: 40px;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 @media (max-width: 767px) {
   /* line 45, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_footer.scss */
   .footer .footer_top {
-    padding-top: 60px;
-    padding-bottom: 30px;
+    padding-top: 0px;
+    padding-bottom: 0px;
   }
 }
 
@@ -2634,13 +2634,13 @@ h3 {
 
 /* line 186, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_footer.scss */
 .footer .copy-right_text {
-  padding-bottom: 150px;
+  padding-bottom: 10px;
   background: #000;
 }
 
 /* line 189, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_footer.scss */
 .footer .copy-right_text .footer_border {
-  padding-bottom: 30px;
+  padding-bottom: 10px;
 }
 
 /* line 193, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_footer.scss */
