@@ -15,4 +15,4 @@ CREATE TABLE RecipeIngredients (
     tags VARCHAR(255)
 );
 INSERT INTO recipes (title, description, ingredients, instructions, image_url, rating, time, portions, tags) VALUES
-('Dragon tiger phoenix', 'Dragon and Phoenix is a traditional Chinese dish...', '1 pound boneless chicken breast, 1/2 pound large shrimp...', '1. In a small bowl, whisk together the cornstarch, soy sauce, hoisin sauce, and rice vinegar...', 'img/recepie/recepie_details.png', 5.0, '30 Mins', '4-6 servings', 'Dinner, Main, Chicken, Dragon, Phoenix');
+('Dragon tiger phoenix', 'Dragon and Phoenix is a traditional Chinese dish...', '1 pound boneless chicken breast, 1/2 pound large shrimp...', '1. In a small bowl, whisk together the cornstarch, soy sauce, hoisin sauce, and rice vinegar...', 'img/recepie/recepie_details.png', 5.0, '30 Mins', '4-6 servings', 'Dinner, Main, Chicken,Dragon, Phoenix');
