@@ -25,10 +25,15 @@ def fetch_recipes():
             recipe_list = []
             for recipe in recipes:
                 recipe_dict = {
-                    'id': recipe[0],
-                    'name': recipe[1],
-                    'description': recipe[2],
+                    'title': recipe[0],
+                    'description': recipe[1],
+                    'ingredients': recipe[2],
                     'instructions': recipe[3],
+                    'image_url': recipe[4],
+                    'rating': recipe[5],
+                    'time': recipe[6],
+                    'portions': recipe[7],
+                    'tags':  recipe[8],
                 }
                 recipe_list.append(recipe_dict)
 
