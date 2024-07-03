@@ -1,48 +1,27 @@
-#!/usr/bin/env python3
+from flask import Flask, render_template, request, redirect, url_for
+from flask_mysqldb import MySQL
 
-from flask import Flask, jsonify
-import sys
-import MySQLdb
+app = Flask(_name_)
 
-app = Flask(__name__)
+# MySQL configurations
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = 'yourpassword'
+app.config['MYSQL_DB'] = 'recipe_db'
 
+mysql = MySQL(app)
 
-db = MySQLdb.connect(
-            host="localhost",
-            user=sys.argv[1],
-            passwd=sys.argv[2],
-            db=sys.argv[3]
-        )
+@app.route('/')
+def index():
+    return render_template('Recipes.html')
 
-@app.route("/")
-def fetch_recipes():
-    try:
-            curs = db.cursor()
-            curs.execute("SELECT * FROM recipes")
-        
-            recipes = curs.fetchall()
+@app.route('/recipe/<int:recipe_id>')
+def recipe_details(recipe_id):
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM recipes WHERE id = %s", (recipe_id,))
+    recipe = cur.fetchone()
+    cur.close()
+    return render_template('recipes_details.html', recipe=recipe)
 
-            recipe_list = []
-            for recipe in recipes:
-                recipe_dict = {
-                    'title': recipe[0],
-                    'description': recipe[1],
-                    'ingredients': recipe[2],
-                    'instructions': recipe[3],
-                    'image_url': recipe[4],
-                    'rating': recipe[5],
-                    'time': recipe[6],
-                    'portions': recipe[7],
-                    'tags':  recipe[8],
-                }
-                recipe_list.append(recipe_dict)
-
-            curs.close()
-
-            return jsonify({"recipes": recipe_list})
-
-    except MySQLdb.Error as e:
-        return jsonify({"error": str(e)}), 500
-
-if __name__ == "__main__":
+if _name_ == '_main_':
     app.run(debug=True)
