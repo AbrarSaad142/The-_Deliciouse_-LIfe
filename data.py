@@ -1,27 +1,36 @@
-from flask import Flask, render_template, request, redirect, url_for
-from flask_mysqldb import MySQL
+#!/usr/bin/env python3
+from flask import Flask, render_template
+import MySQLdb
+import sys
 
-app = Flask(_name_)
+app = Flask(__name__)
 
-# MySQL configurations
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'yourpassword'
-app.config['MYSQL_DB'] = 'recipe_db'
-
-mysql = MySQL(app)
+# Database connection setup
+db = MySQLdb.connect(
+    host="localhost",
+    user=sys.argv[1],
+    passwd=sys.argv[2],
+    db=sys.argv[3]
+)
+@app.route('/')
+def recipes():
+    cur = db.cursor()
+    cur.execute("SELECT * FROM recipes")
+    recipes = cur.fetchall()
+    cur.close()
+    return render_template('Recipes.html', recipes=recipes)
 
 @app.route('/')
 def index():
-    return render_template('Recipes.html')
+    return render_template('index.html')
 
-@app.route('/recipe/<int:recipe_id>')
-def recipe_details(recipe_id):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM recipes WHERE id = %s", (recipe_id,))
-    recipe = cur.fetchone()
-    cur.close()
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/recipes_details')
+def recipes_details():
     return render_template('recipes_details.html', recipe=recipe)
 
-if _name_ == '_main_':
+if __name__ == '__main__':
     app.run(debug=True)
