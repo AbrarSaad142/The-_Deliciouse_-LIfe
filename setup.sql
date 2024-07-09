@@ -6,6 +6,7 @@ FLUSH PRIVILEGES;
 use recipe_db;
 
 CREATE TABLE IF NOT EXISTS recipes (
+    id INT,
     title VARCHAR(255) NOT NULL,
     description TEXT,
     ingredients TEXT,
