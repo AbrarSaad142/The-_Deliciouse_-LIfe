@@ -1,43 +1,36 @@
 #!/usr/bin/env python3
-
-from flask import Flask, jsonify
-import sys
+from flask import Flask, render_template
 import MySQLdb
+import sys
 
 app = Flask(__name__)
 
-
+# Database connection setup
 db = MySQLdb.connect(
-            host="localhost",
-            user=sys.argv[1],
-            passwd=sys.argv[2],
-            db=sys.argv[3]
-        )
+    host="localhost",
+    user=sys.argv[1],
+    passwd=sys.argv[2],
+    db=sys.argv[3]
+)
+@app.route('/')
+def recipes():
+    cur = db.cursor()
+    cur.execute("SELECT * FROM recipes")
+    recipes = cur.fetchall()
+    cur.close()
+    return render_template('Recipes.html', recipes=recipes)
 
-@app.route("/")
-def fetch_recipes():
-    try:
-            curs = db.cursor()
-            curs.execute("SELECT * FROM recipes")
-        
-            recipes = curs.fetchall()
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-            recipe_list = []
-            for recipe in recipes:
-                recipe_dict = {
-                    'id': recipe[0],
-                    'name': recipe[1],
-                    'description': recipe[2],
-                    'instructions': recipe[3],
-                }
-                recipe_list.append(recipe_dict)
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
-            curs.close()
+@app.route('/recipes_details')
+def recipes_details():
+    return render_template('recipes_details.html', recipe=recipe)
 
-            return jsonify({"recipes": recipe_list})
-
-    except MySQLdb.Error as e:
-        return jsonify({"error": str(e)}), 500
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(debug=True)
